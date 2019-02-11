@@ -1,0 +1,132 @@
+## Intro to SQL
+
+### What is SQL?
+
+Structured Query Language. Standard syntax of querying & manipulating data in relational databases. Used by many RDMS, such as Oracle, PostgreSQL, MySQL, etc.
+
+### CRUD
+
+INSERT
+SELECT
+UPDATE
+DELETE
+
+#### Cheat Sheet
+
+##### Create syntax
+
+```
+CREATE TABLE quiz (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT);
+
+INSERT INTO quiz (name) VALUES ("Quiz 1");
+```
+
+##### SELECT Syntax
+
+Choose columns to display from table...
+
+```
+SELECT col1, col2, col3, ... FROM table1
+```
+
+...choose which rows to display...
+
+```
+WHERE col4 = 1 AND col5 = 2
+```
+
+...aggregate the data...
+
+```
+GROUP by ...
+```
+
+...limit the aggregated data...
+
+```
+HAVING COUNT(*) > 1
+```
+
+...order the results
+
+```
+ORDER BY col2
+```
+
+##### UPDATE Syntax
+
+```
+UPDATE table_name
+SET column1=value, column2=value,...
+WHERE some_column=some_value
+```
+
+##### DELETE Syntax
+
+```
+DELETE FROM table_name
+WHERE some_column = some_value
+```
+
+### What is SQLite?
+
+- It's a RDMS.
+- Doesn't require a server unlike other RDMS.
+- The DB is a single file.
+
+#### SQLite Data Types
+
+- NULL - no value (use IS NULL)
+- INTEGER - signed integer
+- REAL - 8 byte floating point integer
+- TEXT - UTF-8/16BE/16LE string
+- BLOB - binary data
+
+#### Joins
+
+Combine records from more than 1 table by using some common value(s) shared between the tables.
+
+For example: Employee & Department tables
+
+How do we list the department each employee is in?
+
+Do INNER JOIN on the department's primary key and the employee's foreign key.
+
+#### Exercises In Class
+
+List all submissions, along with their survey name and the username and overall score (INNER JOIN example)
+
+```
+select surveyTitle, userKey, score
+  from submission join survey
+  on (submission.surveyId = survey.id);
+```
+
+List all usernames for users that took one or more surveys and report how many times they took any survey (GROUP BY and no join needed).
+
+```
+select userKey, count(userKey)
+  from submission
+  group by userKey;
+```
+
+List all surveys along with how many submissions they have and the average, min and max submission score (LEFT OUTER JOIN with aggregations)
+
+```
+select surveyTitle,
+       count(surveyTitle),
+       max(score),
+       avg(score),
+       min(score)
+  from survey left join submission
+  on (submission.surveyId=survey.id)
+  group by surveyTitle;
+```
+
+#### Files
+
+You may download all the files used in class here:
+
+The online tool we used for ERDs is draw.io.
