@@ -10,11 +10,11 @@ INSERT INTO survey (surveyTitle) VALUES ("Survey 3");
 CREATE TABLE question (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   surveyId INTEGER,
-  questionText TEXT,
+  text TEXT,
   FOREIGN KEY(surveyId) REFERENCES survey(id)
 );
 
-INSERT INTO question (surveyId, questionText) VALUES
+INSERT INTO question (surveyId, text) VALUES
   (1, "What is 3+2?"),
   (1, "What is 3-2?"),
   (1, "What is 3*2?"),
@@ -22,15 +22,15 @@ INSERT INTO question (surveyId, questionText) VALUES
   (2, "What is 4-3?"),
   (3, "What is 8+3?");
 
-CREATE TABLE options (
+CREATE TABLE answer (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   questionId INTEGER,
-  optionText TEXT,
-  correctAnswer INTEGER,
+  answerText TEXT,
+  isCorrect INTEGER,
   FOREIGN KEY(questionId) REFERENCES question(id)
 );
 
-INSERT INTO options (questionId, optionText, correctAnswer) VALUES
+INSERT INTO answer (questionId, answerText, isCorrect) VALUES
   (1, "4", 0),
   (1, "5", 1),
   (1, "6", 0),
@@ -50,28 +50,28 @@ INSERT INTO options (questionId, optionText, correctAnswer) VALUES
 CREATE TABLE submission (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     surveyId INTEGER,
-    userKey TEXT,
+    userId TEXT,
     score REAL,
     FOREIGN KEY(surveyId) REFERENCES survey(id)
 );
 
-INSERT INTO submission (surveyId, userKey, score) VALUES
+INSERT INTO submission (surveyId, userId, score) VALUES
   (1, "jack@abc.com", 0.0),
   (1, "diane@def.com", 1.0),
   (1, "jack@abc.com", 0.1667),
   (1, "jack@abc.com", 0.3333);
 
-CREATE TABLE answer (
+CREATE TABLE userAnswer (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   submissionId INTEGER,
   questionId INTEGER,
-  optionId INTEGER,
+  answerId INTEGER,
   FOREIGN KEY(submissionId) REFERENCES submission(id),
   FOREIGN KEY(questionId) REFERENCES question(id),
-  FOREIGN KEY(optionId) REFERENCES option(id)
+  FOREIGN KEY(answerId) REFERENCES answer(id)
 );
 
-INSERT INTO answer (submissionId, questionId, optionId) VALUES
+INSERT INTO userAnswer (submissionId, questionId, answerId) VALUES
   (1, 1, 1),
   (2, 1, 2),
   (2, 2, 4),

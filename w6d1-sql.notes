@@ -94,6 +94,23 @@ How do we list the department each employee is in?
 
 Do INNER JOIN on the department's primary key and the employee's foreign key.
 
+#### Inner vs Outer Joins
+
+An inner join focuses on the commonality between two tables. When using an inner join, there must be at least some matching data between two (or more) tables that are being compared. An inner join searches tables for matching or overlapping data. Upon finding it, the inner join combines and returns the information into one new table.
+
+An outer join returns a set of records (or rows) that include what an inner join would return but also includes other rows for which no corresponding match is found in the other table.
+
+There are three types of outer joins:
+- Left Outer Join (or Left Join)
+- Right Outer Join (or Right Join)
+- Full Outer Join (or Full Join)
+
+Each of these outer joins refers to the part of the data that is being compared, combined, and returned. Sometimes nulls will be produced in this process as some data is shared while other data is not.
+
+Note that Sqlite only supports left outer joins.
+
+For more details, see: https://www.diffen.com/difference/Inner_Join_vs_Outer_Join
+
 #### Exercises In Class
 
 List all submissions, along with their survey name and the username and overall score (INNER JOIN example)
